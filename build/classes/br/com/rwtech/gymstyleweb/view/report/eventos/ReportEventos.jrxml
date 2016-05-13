@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportEventos" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="25"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="periodo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="inicio" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fim" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select e.*,u.nome as aluno,e.data_hora,e.realizado,d.nome as dispositivo,d.endereco_ip as ip,m.motivo as nomemotivo from eventos as e
+left join dispositivos as d on d.id_dispositivos = e.id_dispositivos_fk
+left join usuarios as u on u.id_usuarios = e.id_usuarios_fk
+left join motivos_bloqueio as m on m.id_motivos_bloqueio = e.motivo
+where true
+and data_hora >= $P{inicio}
+and data_hora <= $P{fim}
+order by data_hora desc]]>
+	</queryString>
+	<field name="id_eventos" class="java.lang.Long"/>
+	<field name="data_hora" class="java.sql.Timestamp"/>
+	<field name="criado" class="java.sql.Timestamp"/>
+	<field name="realizado" class="java.lang.Boolean"/>
+	<field name="entrada" class="java.lang.Boolean"/>
+	<field name="offline" class="java.lang.Boolean"/>
+	<field name="posicao" class="java.lang.Integer"/>
+	<field name="motivo" class="java.lang.Long"/>
+	<field name="id_dispositivos_fk" class="java.lang.Long"/>
+	<field name="id_usuarios_fk" class="java.lang.Long"/>
+	<field name="aluno" class="java.lang.String"/>
+	<field name="dispositivo" class="java.lang.String"/>
+	<field name="ip" class="java.lang.String"/>
+	<field name="nomemotivo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="2" y="2" width="420" height="43"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Verdana" size="32" isItalic="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Relatório de Acessos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="2" y="42" width="279" height="27" forecolor="#999999"/>
+				<textElement>
+					<font fontName="Times New Roman" size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[GymStyle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="24" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="20" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="3" width="41" height="17" forecolor="#333333"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Período:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="42" y="4" width="266" height="16"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement x="0" y="0" width="555" height="16" forecolor="#999999" backcolor="#999999"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="117" y="0" width="141" height="16" forecolor="#333333"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Aluno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="263" y="0" width="178" height="16" forecolor="#333333"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="442" y="-1" width="112" height="16" forecolor="#333333"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Catraca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="15" y="0" width="100" height="16" forecolor="#333333"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Data-Hora]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="2" y="8" width="11" height="1" forecolor="#333333"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Prevent">
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="16" forecolor="#FFFFFF" backcolor="#ECECED">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="117" y="0" width="141" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{aluno}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="443" y="0" width="112" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{dispositivo}==null?$F{ip}:$F{dispositivo})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="15" y="0" width="100" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{data_hora}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="263" y="0" width="178" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{nomemotivo}.equalsIgnoreCase("Liberado")?(
+    ($F{aluno}==null?"Passagem Liberada na Catraca":$F{nomemotivo})
+):$F{nomemotivo})]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="116" y="0" width="1" height="16" forecolor="#999999"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="260" y="-1" width="1" height="17" forecolor="#999999"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToBandHeight" mode="Opaque" x="441" y="0" width="1" height="16" forecolor="#999999"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="0" width="555" height="16" forecolor="#999999" backcolor="#FFFFFF"/>
+			</rectangle>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="14" y="0" width="1" height="16" forecolor="#999999"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="13" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{nomemotivo}.equalsIgnoreCase("Liberado")?(($F{entrada}==true?"E":"S")):"")]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="15" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="537" y="0" width="16" height="15" forecolor="#333333"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement style="Column header" x="365" y="0" width="172" height="15" forecolor="#333333"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página   "+$V{PAGE_NUMBER} +" /"]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement style="Column header" x="46" y="0" width="197" height="15" forecolor="#333333"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="false" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="0" width="54" height="15"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Emitido em:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

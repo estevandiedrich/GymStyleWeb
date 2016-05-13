@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportCaixa" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="082992f2-ab21-4f88-8499-fedf55b834a4">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="79"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="mes" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ano" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="entradaTotal" class="java.lang.Double"/>
+	<parameter name="retiradaTotal" class="java.lang.Double"/>
+	<parameter name="saldoTotal" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="dia" class="java.lang.Integer"/>
+	<field name="saldoInicial" class="java.lang.Double"/>
+	<field name="saldoDia" class="java.lang.Double"/>
+	<field name="saldoAcumulado" class="java.lang.Double"/>
+	<field name="entrada" class="java.lang.Double"/>
+	<field name="retirada" class="java.lang.Double"/>
+	<field name="acimaDataAtual" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="76" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" x="497" y="57" width="28" height="16" forecolor="#FFFFFF" backcolor="#ECECED" uuid="5316cd2d-cf06-441b-8615-7bf57b92123f"/>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" x="421" y="57" width="27" height="16" forecolor="#FFFFFF" backcolor="#ECECED" uuid="3f521cfd-7bf4-4cba-96ad-564f3f70d788"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Title" x="1" y="1" width="551" height="43" uuid="0b3d2300-0f35-4f81-98f6-4e0db82d6e53"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Verdana" size="32" isItalic="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Relatório de Caixa Mensal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="2" y="29" width="279" height="36" forecolor="#999999" uuid="b60f13db-5d99-4f7e-ac38-1e5d3bf5d44e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="28" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[GymStyle]]></text>
+			</staticText>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="422" y="57" width="131" height="16" forecolor="#999999" backcolor="#FFFFFF" uuid="139fd054-1317-4e02-a33b-3f7921f520ea"/>
+			</rectangle>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToBandHeight" mode="Opaque" x="448" y="57" width="1" height="16" forecolor="#999999" uuid="de5187e3-90cc-4a53-b25a-0ebf8fa32342"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="421" y="56" width="27" height="17" forecolor="#333333" uuid="03ee987d-9231-4772-9a4d-f783586fdeb5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[MÊS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="498" y="56" width="27" height="17" forecolor="#333333" uuid="3547aa8e-9416-4420-abf6-f708e33515d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ANO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="525" y="56" width="27" height="17" uuid="6ddab417-641b-47be-8ba7-87ea0436076f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ano}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="449" y="56" width="48" height="17" uuid="c43d3f1c-150a-4cfb-9f84-1d0cc7f02dbc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mes}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToBandHeight" mode="Opaque" x="524" y="57" width="1" height="16" forecolor="#999999" uuid="959efcd1-f590-408e-a8b3-0f477f8b155b"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToBandHeight" mode="Opaque" x="497" y="57" width="1" height="16" forecolor="#999999" uuid="f7e25c69-d870-4343-806b-7e6decc73250"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="2" width="555" height="1" uuid="51c6feb6-8c8e-4723-a531-2b8e76c72ff6"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement x="0" y="0" width="555" height="16" forecolor="#999999" backcolor="#999999" uuid="8db66e34-32d5-4eeb-a6db-700767ceefd2"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="33" y="0" width="129" height="16" forecolor="#333333" uuid="43983fab-5e07-420a-a159-8167d1dd7305"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Entradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="163" y="0" width="129" height="16" forecolor="#333333" uuid="b891cb6e-cd79-48b6-8639-1595ca847b31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Retiradas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="422" y="0" width="133" height="16" forecolor="#333333" uuid="f70b58fb-7057-4f07-b2f8-21a0299c6cb5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Saldo Acumulado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="292" y="0" width="129" height="16" forecolor="#333333" uuid="3b342733-504c-4cae-88c4-4037d63c1dc4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Saldo do Dia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="2" y="0" width="30" height="16" forecolor="#333333" uuid="2b09828e-aa07-49b0-8539-5c7b57a6a751"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Dia]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Prevent">
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="16" forecolor="#FFFFFF" backcolor="#ECECED" uuid="c850ddec-463a-43df-95d4-6d782d541e8a">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true" pattern="R$ #,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="422" y="0" width="133" height="16" uuid="9504115d-7c58-421a-8eeb-d431d1aff527"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new Boolean($F{acimaDataAtual}) == true ? "-":$F{saldoAcumulado}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="R$ #,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="33" y="0" width="129" height="16" forecolor="#009933" uuid="7b64dd5c-04ba-4602-b4c4-169266f9667d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new Boolean($F{acimaDataAtual}) == true ? "-":$F{entrada}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="R$ #,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="163" y="0" width="129" height="16" forecolor="#FF0000" uuid="fdad080a-bcf2-4955-9e89-37c81c77edd0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new Boolean($F{acimaDataAtual}) == true ? "-":$F{retirada}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="162" y="-1" width="1" height="17" forecolor="#999999" uuid="a1933716-21e3-43e5-a54f-e6a3a05edb68"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToBandHeight" mode="Opaque" x="421" y="0" width="1" height="16" forecolor="#999999" uuid="ab4d3788-52ec-4495-b8d5-679a3f8c1f6d"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="0" width="555" height="16" forecolor="#999999" backcolor="#FFFFFF" uuid="80e70561-5f29-429f-a2b7-98589993b14d"/>
+			</rectangle>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="32" y="0" width="1" height="16" forecolor="#999999" uuid="96199a39-672e-46e7-960e-a882e2f63e4d"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="1" y="0" width="31" height="16" uuid="e4adbe70-3e0a-4396-9e9c-e7a5edd41a92"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dia}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToBandHeight" mode="Opaque" x="291" y="-1" width="1" height="16" forecolor="#999999" uuid="319c757c-308a-44ea-b945-a0b1772e4f0f"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="R$ #,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="292" y="0" width="129" height="16" uuid="3ba44b83-f63d-4b0f-a445-f603e886688a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new Boolean($F{acimaDataAtual}) == true ? "-":$F{saldoDia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="c8c0afc5-ffa6-4c08-8c52-2c9bc28eb4ef"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="15" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="fe10e65b-381a-496d-b117-d09faf02410a"/>
+				<textField pattern="dd/MM/yyyy HH:mm:ss">
+					<reportElement style="Column header" x="46" y="0" width="197" height="15" forecolor="#333333" uuid="178bf745-01c9-4011-b8ce-feff3e7758d2"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="false" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="0" width="54" height="15" uuid="73550790-bf66-4827-a2f4-384b02ded5bd"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Emitido em:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement style="Column header" x="145" y="34" width="133" height="16" forecolor="#333333" uuid="e75384a6-72f8-4465-bd82-4e7870bc1403"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Retirada:]]></text>
+			</staticText>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="145" y="34" width="264" height="16" forecolor="#999999" backcolor="#FFFFFF" uuid="e82e0ffe-7938-446d-b07b-cb33f150e777"/>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" x="145" y="18" width="133" height="16" forecolor="#FFFFFF" backcolor="#FFF6D8" uuid="27f5ec61-2453-4cb4-a3ba-08513e22b8dc"/>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="145" y="18" width="264" height="16" forecolor="#999999" backcolor="#FFFFFF" uuid="632aa992-271e-45f3-85d2-f7c32b42a71f"/>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" x="145" y="50" width="133" height="16" forecolor="#FFFFFF" backcolor="#ECECED" uuid="9edf2b01-868b-4476-9e9a-b8c2e5724dce"/>
+			</rectangle>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="277" y="18" width="1" height="16" forecolor="#999999" uuid="c0a518e7-d135-4d45-94a4-cbcf4911fd96"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="277" y="34" width="1" height="16" forecolor="#999999" uuid="eb611ce3-530e-413c-b99d-697c74b74699"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="277" y="50" width="1" height="16" forecolor="#999999" uuid="781aa42e-930e-42fe-95d7-f9f1b95f8c86"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" x="145" y="4" width="264" height="13" forecolor="#999999" backcolor="#999999" uuid="693473a2-c5c2-4b72-b2b8-3472d0b44951"/>
+			</rectangle>
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="278" y="34" width="131" height="16" forecolor="#FF0000" uuid="6da3f481-a2b4-40a1-a23e-7e963921a597"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{retiradaTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="278" y="18" width="130" height="16" forecolor="#009933" uuid="bd331dd5-44da-4440-975f-ae68608e9527"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{entradaTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="R$ #,##0.00" isBlankWhenNull="true">
+				<reportElement x="278" y="50" width="131" height="16" uuid="6c663531-4d07-469a-b043-50ca9be5476e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{saldoTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="214" y="4" width="127" height="13" forecolor="#333333" uuid="7a8f347a-c604-4e10-867e-24bc09e10cb6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[RESUMO DO MÊS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="145" y="18" width="132" height="16" forecolor="#333333" uuid="a88b9118-e270-4f0b-86fc-101dbcc926dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Entrada:]]></text>
+			</staticText>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="145" y="50" width="264" height="16" forecolor="#999999" backcolor="#FFFFFF" uuid="09d73f69-1ff5-4abd-a50d-2b34423fbbbf"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="145" y="50" width="131" height="16" forecolor="#333333" uuid="666c55d1-ed3e-44a7-92e5-f2f786e84dfb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Saldo:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

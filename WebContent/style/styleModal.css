@@ -1,0 +1,226 @@
+@charset "UTF-8";
+/* CSS Document */
+/* O z-index do div#mask deve ser menor que do div#boxes e do div.window */
+
+#mask {
+    position:fixed;
+    background-color: rgba(85, 85, 85, 0.44);
+    z-index:9000; 
+    width:440px;
+    height:200px;
+    display:none;
+    /*padding: 200px;*/
+    /*margin-top: 100px;*/
+}
+
+#holder .window {
+    position: fixed;
+    /*top: 20px;*/
+    width:440px;
+    height:200px;
+    display:none;
+    z-index:9999;
+    /*padding:200px;*/
+}
+
+#status{
+    border-radius: 8px;
+    border: 1px solid #000;
+    width: 700px;
+    height: 350px;
+    /*z-index: 10000*/
+    background: white;
+    margin: 240px auto;
+    padding-top: 25px;
+}
+
+/* Personalize a janela modal aqui. Você pode adicionar uma imagem de fundo. */
+#holder #dialog {
+    width:375px;
+    height:203px;
+}
+
+/* posiciona o link para fechar a janela */
+.close {
+    display:block;
+    text-align:right;
+}
+
+#windowRetirada {
+    position:fixed;
+    background-color: rgba(85, 85, 85, 0.44);
+    z-index:9000; 
+    width:440px;
+    height:350px;
+    display:none;
+}
+
+#statusRetirada{
+    border-radius: 8px;
+    border: 1px solid #000;
+    width: 700px;
+    height: 350px;
+    /*z-index: 10000*/
+    background-color: white;
+    margin-top: 300px;
+    padding-top: 25px;
+}
+
+#windowEntrada {
+    position:fixed;
+    background-color: rgba(85, 85, 85, 0.44);
+    z-index:9000; 
+    width:440px;
+    height:300px;
+    display:none;
+}
+
+#statusEntrada{
+    border-radius: 8px;
+    border: 1px solid #000;
+    width: 700px;
+    height: 320px;
+    /*z-index: 10000*/
+    background-color: white;
+    margin-top: 300px;
+    padding-top: 25px;
+}
+#windowSaida {
+    position:fixed;
+    background-color: rgba(85, 85, 85, 0.44);
+    z-index:9000; 
+    width:440px;
+    height:300px;
+    display:none;
+}
+
+#statusSaida{
+    border-radius: 8px;
+    border: 1px solid #000;
+    width: 700px;
+    height: 320px;
+    /*z-index: 10000*/
+    background-color: white;
+    margin-top: 300px;
+    padding-top: 25px;
+}
+
+#windowAbrirCaixa {
+    position:fixed;
+    background-color: rgba(85, 85, 85, 0.44);
+    z-index:9000; 
+    width:440px;
+    height:200px;
+    display:none;
+}
+
+#statusAbrirCaixa{
+    border-radius: 8px;
+    border: 1px solid #000;
+    width: 700px;
+    height: 400px;
+    /*z-index: 10000*/
+    background-color: white;
+    margin-top: 300px;
+    padding-top: 25px;
+}
+
+#windowFecharCaixa {
+    position:fixed;
+    background-color: rgba(85, 85, 85, 0.44);
+    z-index:9000; 
+    width:440px;
+    height:300px;
+    display:none;
+}
+
+#statusFecharCaixa{
+    border-radius: 8px;
+    border: 1px solid #000;
+    width: 700px;
+    height: 300px;
+    /*z-index: 10000*/
+    background-color: white;
+    margin-top: 300px;
+    padding-top: 25px;
+}
+
+#windowBuscarBancos {
+    position:fixed;
+    background-color: rgba(85, 85, 85, 0.44);
+    z-index:9000; 
+    width:440px;
+    height:400px;
+    display:none;
+}
+
+#statusBuscarBancos{
+    border-radius: 8px;
+    border: 1px solid #000;
+    width: 700px;
+    height: 450px;
+    /*z-index: 10000*/
+    background-color: white;
+    margin-top: 200px;
+    padding-top: 25px;
+}
+
+#windowConfirmPag {
+    position:fixed;
+    background-color: rgba(85, 85, 85, 0.44);
+    z-index:9000; 
+    width:430px;
+    height:250px;
+    display:none;
+}
+
+#statusConfirmPag{
+    border-radius: 8px;
+    border: 1px solid #000;
+    width: 430px;
+    height: 250px;
+    /*z-index: 10000*/
+    background-color: white;
+    margin-top: 200px;
+    padding-top: 25px;
+}
+
+#windowConsultaUsuario {
+    position:fixed;
+    background-color: rgba(85, 85, 85, 0.44);
+    z-index:9000; 
+    width:440px;
+    height:400px;
+    display:none;
+}
+
+#statusConsultaUsuario{
+    border-radius: 8px;
+    border: 1px solid #000;
+    width: 700px;
+    height: 450px;
+    /*z-index: 10000*/
+    background-color: white;
+    margin-top: 200px;
+    padding-top: 25px;
+}
+
+#windowConsultaProduto {
+    position:fixed;
+    background-color: rgba(85, 85, 85, 0.44);
+    z-index:9000; 
+    width:440px;
+    height:400px;
+    display:none;
+}
+
+#statusConsultaProduto{
+    border-radius: 8px;
+    border: 1px solid #000;
+    width: 700px;
+    height: 450px;
+    /*z-index: 10000*/
+    background-color: white;
+    margin-top: 200px;
+    padding-top: 25px;
+}

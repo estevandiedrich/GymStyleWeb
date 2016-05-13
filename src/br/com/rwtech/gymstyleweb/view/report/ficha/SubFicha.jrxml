@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubFicha" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="daf40f40-e0d9-4497-8072-03f86995d4f6">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_treinos" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[select s.*,e.nome as exercicio,g.nome as grupo from exercicios as e
+left join grupos_musculares as g on g.id_grupos_musculares = e.id_grupos_musculares_fk
+left join series as s on s.id_exercicios_fk = e.id_exercicios
+left join treinos as t on s.id_treinos_fk = t.id_treinos
+where true
+and id_treinos_fk = $P{id_treinos}
+order by t.id_treinos,s.ordem,id_series]]>
+	</queryString>
+	<field name="id_series" class="java.lang.Long"/>
+	<field name="series" class="java.lang.String"/>
+	<field name="repeticoes" class="java.lang.String"/>
+	<field name="carga" class="java.lang.String"/>
+	<field name="id_treinos_fk" class="java.lang.Long"/>
+	<field name="id_exercicios_fk" class="java.lang.Long"/>
+	<field name="ordem" class="java.lang.Long"/>
+	<field name="exercicio" class="java.lang.String"/>
+	<field name="grupo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="556" height="16" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="acc7b7dc-171d-42a2-a5f6-36f342c1bb82">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 1) == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="556" height="16" forecolor="#FFFFFF" backcolor="#F0F0FF" uuid="769680e5-70d7-4637-b54b-befc81c980a9">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="0" width="556" height="16" forecolor="#999999" backcolor="#FFFFFF" uuid="1f48d244-61d3-4bcf-8f45-7adefe85f97e"/>
+			</rectangle>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="28" y="0" width="1" height="16" forecolor="#999999" uuid="47ed5f2e-a469-456f-8641-110a2abfff3e"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToBandHeight" mode="Opaque" x="374" y="0" width="1" height="16" forecolor="#999999" uuid="b3dd9930-ef1f-4856-ae39-f306574d7578"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToBandHeight" mode="Opaque" x="453" y="0" width="1" height="16" forecolor="#999999" uuid="1ea4b923-06fb-406b-acae-04ef7c0e9d1a"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="34" y="0" width="160" height="15" forecolor="#333333" uuid="0538b750-e38b-4c1a-893c-89a997300ad6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{exercicio}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="277" y="0" width="1" height="16" forecolor="#999999" uuid="1d437ef7-f480-477c-b4b2-5f942f5502ae"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="0" y="0" width="28" height="16" forecolor="#333333" uuid="eb67c99f-6b66-426b-888a-a51bb6d8b80f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="98" height="16" forecolor="#333333" uuid="2da6a0ea-fe8d-4a79-a869-f56298c3261d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grupo}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="196" y="0" width="1" height="16" forecolor="#999999" uuid="72236cfb-0f6b-4151-906b-0b46400a2906"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="197" y="0" width="80" height="16" forecolor="#333333" uuid="b3217ac3-cfb5-4383-8219-fe493f155941"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{series}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="0" width="95" height="16" forecolor="#333333" uuid="4754b86e-7090-4bbb-bed3-7e6c94d60cbe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{repeticoes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="375" y="0" width="79" height="16" forecolor="#333333" uuid="c34f3b8b-942a-446f-ab3a-855dbb7f4b89"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{carga}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

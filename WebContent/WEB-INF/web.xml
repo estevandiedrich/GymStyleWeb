@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <servlet>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>org.mentawai.core.Controller</servlet-class>
+        <init-param>
+            <param-name>applicationManager</param-name>
+            <param-value>br.com.rwtech.gymstyleweb.controller.ApplicationManager</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>TemplateServlet</servlet-name>
+        <servlet-class>org.mentawai.template.JspTemplateServlet</servlet-class>
+        <init-param>
+            <param-name>TemplateManager</param-name>
+            <param-value>br.com.rwtech.gymstyleweb.controller.TemplateManager</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TemplateServlet</servlet-name>
+        <url-pattern>*.page</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <!--Sessao tem que espirar em duas horas, devido se estiver atualizando usuários, ele encerrará a sessao do usuário no meio caminho-->
+        <session-timeout>90</session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

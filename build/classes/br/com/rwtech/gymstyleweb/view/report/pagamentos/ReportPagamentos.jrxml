@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportPagamentos" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fdf3c373-ef88-47c9-83f2-c688b6d89627">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="554"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="periodo" class="java.lang.String"/>
+	<parameter name="inicio" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fim" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select p.id_pagamentos,p.numero_parcela, p.vencimento, p.pagamento, p.valor_pago, p.valor,p.id_funcionarios_fk,
+(select nome from usuarios where id_usuarios = p.id_funcionarios_fk) as funcionario, u.nome, f.nome as forma,pu.cancelado, (select sum(valor)  from pagamentos as p left join formas_pagamento as f on f.id_formas_pagamento = p.id_formas_pagamento_fk left join planos_usuarios as pu on pu.id_planos_usuarios = p.id_planos_usuarios_fk left join usuarios as u on u.id_usuarios = pu.id_usuarios_fk where true and pagamento is NOT NULL
+     and pagamento >= $P{inicio}
+     and pagamento <= $P{fim}) as valor_total,(  select sum(valor_pago)  from pagamentos as p left join formas_pagamento as f on f.id_formas_pagamento = p.id_formas_pagamento_fk left join planos_usuarios as pu on pu.id_planos_usuarios = p.id_planos_usuarios_fk left join usuarios as u on u.id_usuarios = pu.id_usuarios_fk where true and pagamento is NOT NULL
+     and pagamento >= $P{inicio}
+     and pagamento <= $P{fim} ) as valor_pago_total from pagamentos as p left join formas_pagamento as f on f.id_formas_pagamento = p.id_formas_pagamento_fk left join planos_usuarios as pu on pu.id_planos_usuarios = p.id_planos_usuarios_fk left join usuarios as u on u.id_usuarios = pu.id_usuarios_fk where true and pagamento is NOT NULL
+     and pagamento >= $P{inicio}
+     and pagamento <= $P{fim}
+order by pagamento DESC ,id_pagamentos DESC]]>
+	</queryString>
+	<field name="id_pagamentos" class="java.lang.Long"/>
+	<field name="numero_parcela" class="java.lang.Integer"/>
+	<field name="vencimento" class="java.sql.Date"/>
+	<field name="pagamento" class="java.sql.Timestamp"/>
+	<field name="valor_pago" class="java.lang.Double"/>
+	<field name="valor" class="java.lang.Double"/>
+	<field name="id_funcionarios_fk" class="java.lang.Long"/>
+	<field name="funcionario" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="forma" class="java.lang.String"/>
+	<field name="cancelado" class="java.lang.Boolean"/>
+	<field name="valor_total" class="java.lang.Double"/>
+	<field name="valor_pago_total" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="74" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="2" y="2" width="503" height="43" uuid="ae9dec52-0928-4836-9026-37222daeda26"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Verdana" size="32" isItalic="true" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Relatório de Pagamentos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="2" y="44" width="279" height="27" forecolor="#999999" uuid="53284dff-75cf-409e-b0b0-f1f6131fbf10"/>
+				<textElement>
+					<font fontName="Times New Roman" size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[GymStyle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="20" width="802" height="1" uuid="d202df71-26f7-4044-84f8-41decf0c1276"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="3" width="41" height="16" forecolor="#333333" uuid="afd25c2f-a242-4dd2-b36b-9329f7d81e3f"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Período:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="43" y="3" width="284" height="16" uuid="7d5b212a-0ef0-4ad8-b1eb-a637637f9e2d"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement x="0" y="0" width="802" height="16" forecolor="#999999" backcolor="#999999" uuid="db075e80-ad84-444b-abfa-376e759fef39"/>
+			</rectangle>
+			<staticText>
+				<reportElement style="Column header" x="267" y="0" width="86" height="16" forecolor="#333333" uuid="a57b4d0a-f6ed-4d68-84e2-db9491dbe91f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Valor Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="485" y="0" width="158" height="16" forecolor="#333333" uuid="788302bb-5848-413d-8dfd-22d6758fde2b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Aluno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="356" y="0" width="128" height="16" forecolor="#333333" uuid="d91caac8-4866-45a1-a4b9-c030f7d6d0f0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Forma de Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="3" y="0" width="125" height="16" forecolor="#333333" uuid="3c11a1cb-6a74-44de-87a8-e7310692c7ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="130" y="0" width="128" height="16" forecolor="#333333" uuid="bc6def76-d3c1-4e23-b694-ec57f8fbe1bb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="645" y="-1" width="155" height="16" forecolor="#333333" uuid="3e36010f-d9b8-45b4-a1d0-9af5c27f2a11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Funcionário]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Prevent">
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="802" height="16" forecolor="#FFFFFF" backcolor="#ECECED" uuid="4c5345c7-a9a4-444f-93ab-d0c16ae67caa">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="265" y="0" width="88" height="16" uuid="d83bcc06-0656-4f2a-baee-147eb2680525"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valor_pago}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="356" y="0" width="128" height="16" uuid="0c65385e-d319-4bdd-bd78-7c78d6340728"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{forma}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="3" y="0" width="124" height="16" uuid="f7d76330-ed2d-4f9f-96b0-5bcf9ec28a96"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pagamento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="485" y="0" width="158" height="16" uuid="de75aec7-77f2-4e86-b952-4bbae1eda3d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="261" y="0" width="1" height="16" forecolor="#999999" uuid="ff542cb7-4a88-41eb-8719-f3395c838e9e"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="128" y="-1" width="1" height="17" forecolor="#999999" uuid="2f27487a-b52a-47bf-8a49-e697b9458e25"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToBandHeight" mode="Opaque" x="484" y="0" width="1" height="16" forecolor="#999999" uuid="777ba843-3a07-4cd9-a0a5-534bbc677ded"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="0" width="802" height="16" forecolor="#999999" backcolor="#FFFFFF" uuid="f3e7d621-e6d1-422c-a347-f5887c0d604e"/>
+			</rectangle>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="132" y="0" width="128" height="16" uuid="3a1f9bf9-5f9e-4e93-ba70-9645da1bc7b0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{vencimento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="644" y="-1" width="157" height="16" uuid="64f8e6bb-d0b4-4aa3-910c-1455fefaf8d6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{funcionario}]]></textFieldExpression>
+			</textField>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="354" y="0" width="1" height="16" forecolor="#999999" uuid="e3027d00-4647-4409-9cc9-58adeb3663ce"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="643" y="0" width="1" height="16" forecolor="#999999" uuid="25e75109-39de-4820-911a-ae687468baf6"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="e5ec05da-7359-40ff-a7b2-c286bf9bff8c"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="802" height="15" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="528a71b9-e1c5-4443-9749-147520f8412f"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="780" y="0" width="16" height="15" forecolor="#333333" uuid="d2b5d694-bb13-44a0-9201-071845a9ef1b"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField pattern="">
+					<reportElement style="Column header" x="608" y="0" width="172" height="15" forecolor="#333333" uuid="15cac914-5ebe-4260-91bd-801a2a9812fd"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Página   "+$V{PAGE_NUMBER} +" /"]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement style="Column header" x="46" y="0" width="197" height="15" forecolor="#333333" uuid="def1416b-6c2c-45c1-84d6-ad3ec19c600a"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="false" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="0" width="54" height="15" uuid="592475e0-6676-45a0-87cf-eed28d5b9778"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Emitido em:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="60" splitType="Stretch">
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="18" width="802" height="16" forecolor="#FFFFFF" backcolor="#ECECED" uuid="e9a2cc68-ed24-41f1-b959-25e66f19e848"/>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="18" width="802" height="16" forecolor="#999999" backcolor="#FFFFFF" uuid="ce5fbae6-24e1-46f7-9a9f-f7a91cd25d5f"/>
+			</rectangle>
+			<rectangle radius="0">
+				<reportElement x="0" y="2" width="802" height="16" forecolor="#999999" backcolor="#999999" uuid="9fa51957-552e-4c9e-b8b9-446ca9435a22"/>
+			</rectangle>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="709" y="34" width="90" height="16" uuid="51e77a8d-90e4-4cd5-b614-e0e1cb809179"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valor_pago_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="709" y="18" width="90" height="16" uuid="e63c180b-fc9c-4838-894a-8bfac139e7fb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valor_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="332" y="2" width="100" height="16" forecolor="#333333" uuid="c8d2241e-977c-4baf-a42b-1022ccec80a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Resumo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="581" y="18" width="124" height="16" forecolor="#333333" uuid="334c9300-f201-492d-b6ca-1f1561039a6e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Valor Total a Receber:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="584" y="34" width="120" height="16" forecolor="#333333" uuid="306427c8-16ab-4c8e-a8b8-3a51565c5649"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Valor Total Recebido:]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="708" y="34" width="1" height="16" forecolor="#999999" uuid="4d1c4094-ac10-4efe-8d71-7cd1c27a47bd"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<rectangle radius="0">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="0" y="34" width="802" height="16" forecolor="#999999" backcolor="#FFFFFF" uuid="76cfd770-1838-4e5e-abb5-7a22ba9ec56b"/>
+			</rectangle>
+			<line direction="BottomUp">
+				<reportElement key="line-11" stretchType="RelativeToTallestObject" mode="Opaque" x="708" y="18" width="1" height="16" forecolor="#999999" uuid="cda8ef87-a066-4e64-a9cc-6e8656bca843"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
