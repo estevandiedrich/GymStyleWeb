@@ -129,7 +129,7 @@ public class ParcelasAjaxAction extends BaseAction {
             } else if (periodo.getDuracao().equalsIgnoreCase("Quinzenal")) {
             	pojo.setValor(valorFinal / 2);
                 pojo.setFimAcesso(Calendar.getInstance());
-                pojo.getFimAcesso().add(Calendar.DAY_OF_MONTH, 12);//incrementa o meses
+                pojo.getFimAcesso().add(Calendar.DAY_OF_MONTH, 14);//incrementa o meses
             }
             lista.add(pojo);
         }

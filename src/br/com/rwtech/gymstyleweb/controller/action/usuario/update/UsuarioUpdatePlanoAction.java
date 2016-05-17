@@ -119,7 +119,7 @@ public class UsuarioUpdatePlanoAction extends BaseAction {
                             pagamento.setValor(val / 4);
                         } else if (tipo.equalsIgnoreCase("Quinzenal")){
                         	pagamento.setFimAcesso(Calendar.getInstance());
-                            pagamento.getFimAcesso().add(Calendar.DAY_OF_MONTH, 12);//aqui ele vai adicionar 6 dias de acesso mais o atual
+                            pagamento.getFimAcesso().add(Calendar.DAY_OF_MONTH, 14);//aqui ele vai adicionar 6 dias de acesso mais o atual
                             Double val = new Double(input.getString("valorTotal"));//Ja vem no formato para Double
                             pagamento.setValor(val / 2);
                         } else {
